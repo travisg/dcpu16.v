@@ -8,7 +8,7 @@ SRC := \
 SRC += testbench.v
 
 #EXTRADEPS := ram.txt makerambanks.py
-EXTRADEPS := test2.asm.hex
+EXTRADEPS := tests/example.hex
 
 all: testbench 
 
