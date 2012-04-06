@@ -37,7 +37,7 @@ parameter DWIDTH = 16;
 reg [AWIDTH-2:0] pc;
 reg [AWIDTH-2:0] nextpc;
 
-always @(pc)
+always @(rst or pc)
 begin
 	nextpc = pc + 1;
 end
@@ -60,6 +60,10 @@ always @(rst or state)
 begin
 	if (rst)
 		nextstate = `STATE_RST;
+	else if (state == `STATE_RST)
+		nextstate = `STATE_FETCH;
+	else if (state == `STATE_FETCH)
+		nextstate = `STATE_DECODE;
 	else
 		nextstate = `STATE_FETCH;
 end
@@ -71,7 +75,7 @@ always @(nextstate or pc or nextpc)
 begin
 	case (nextstate)
 		`STATE_RST: memaddr = pc;
-		`STATE_FETCH: memaddr = nextpc;
+		`STATE_FETCH: memaddr = pc;
 		`STATE_DECODE: memaddr = 15'bxxxxxxxxxxxxxxx;
 		default: memaddr = 15'bxxxxxxxxxxxxxxx;
 	endcase
@@ -104,12 +108,13 @@ begin
 		`STATE_DECODE: begin
 			case (ir[3:0])
 				4'b0: begin // special
+
 				end
 
-				
+				default: begin // regular alu ops
+					
 
-				
-			
+				end
 			endcase
 		end
 		default: begin
@@ -123,6 +128,7 @@ end
 
 
 
+/* old code from different project, used as a template */
 
 `ifdef what
 assign wmemdata = (mem_we && !mem_re) ? reg_c : 32'bz;

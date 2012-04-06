@@ -151,9 +151,9 @@ end
 
 always @(posedge clk) begin
 	if (re)
-		rdata <= rom[addr];
+		rdata <= #5 rom[addr];
 	if (we)
-		rom[addr] <= wdata;
+		rom[addr] <= #5 wdata;
 end
 
 endmodule
