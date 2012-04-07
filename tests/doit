@@ -1,3 +1,0 @@
-#!/bin/sh
-
-./a16 -O hex -o example.hex example.s
