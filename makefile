@@ -8,14 +8,14 @@ SRC := \
 SRC += testbench.v
 
 #EXTRADEPS := ram.txt makerambanks.py
-TESTHEX := tests/example.hex
+TESTHEX := tests/example.hex tests/test.hex
 
 all: testbench 
 
-testbench: $(SRC)
+testbench: $(SRC) $(TESTHEX)
 	$(IVL) -o testbench $(SRC)
 
-testbench.vcd: testbench $(TESTHEX)
+testbench.vcd: testbench
 	./testbench
 
 .PHONY: $(TESTHEX)

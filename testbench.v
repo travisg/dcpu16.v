@@ -146,7 +146,7 @@ reg [DWIDTH-1:0] rom [0:ROMSIZE-1];
 integer i;
 initial begin
 	for (i = 0; i < ROMSIZE; i = i + 1) rom[i] = 0;
-	$readmemh("tests/example.hex", rom);
+	$readmemh("tests/test.hex", rom);
 end
 
 always @(posedge clk) begin
